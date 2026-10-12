@@ -1,0 +1,55 @@
+# 修改入库参数后，在网页中点击「重新索引」。旧索引会保留到新版本成功。
+server:
+  host: 127.0.0.1
+  port: 8000
+storage:
+  directory: data
+  model_cache: .cache/models
+pdf:
+  device: cpu
+  threads: 4
+  ocr: true
+  ocr_language: en
+  table_structure: true
+  image_scale: 2.0
+  max_file_mb: 100
+  max_pages: 500
+cleaning:
+  margin_ratio: 0.08
+  repeat_ratio: 0.60
+  min_repeat_pages: 3
+  # 仅在页边区域应用，不会全局删除正文关键词。
+  margin_patterns: []
+chunking:
+  max_tokens: 700
+  overlap_tokens: 100
+embedding:
+  model: BAAI/bge-m3
+  device: auto
+  batch_size: 4
+  dimension: 1024
+  max_tokens: 1024
+reranker:
+  model: BAAI/bge-reranker-v2-m3
+  enabled: true
+  device: auto
+  batch_size: 4
+  max_tokens: 1024
+retrieval:
+  dense_top_k: 20
+  bm25_top_k: 20
+  candidate_limit: 40
+  final_top_k: 8
+  rrf_k: 60
+  rewrite_query: true
+  # 参考文献保留并参与检索；回答必须区分本篇结果与对其他论文的引用。
+  include_references: true
+llm:
+  base_url: https://api.deepseek.com
+  model: deepseek-flash
+  api_key_env: DEEPSEEK_API_KEY
+  thinking: false
+  timeout_seconds: 120
+  max_output_tokens: 3000
+  temperature: 0.1
+  history_turns: 4
